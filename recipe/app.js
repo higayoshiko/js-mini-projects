@@ -9,16 +9,6 @@ class UI {
 
   static displayIngredients() {
 
-    const lists = [ {
-      ingredient: "apple",
-      quantity: "3"
-    },
-    {
-      ingredient: "apple",
-      quantity: "3"
-    }
-    ];
-
     lists.forEach((list) => UI.addIngredients(list));
   }
 
@@ -37,8 +27,28 @@ class UI {
     ingredientList.appendChild(li);
   }
 
-  static deleteList(){
+  static deleteList(e){
+    if(e.classList.contains('delete')){
+      e.parentElement.remove();
+    }
+  }
 
+  static clearFields(){
+    document.querySelector("#ingredient").value = "";
+    document.querySelector("#ingredientQty").value = "";
+  }
+
+  static showAlert(text, className){
+    const div = document.createElement("div");
+    div.className = `alert alert-${className}`;
+    div.appendChild(document.createTextNode(text));
+    const listCtn = document.querySelector(".list-ctn");
+    const ingredientList = document.querySelector("#ingredient-list");
+    listCtn.insertBefore(div, ingredientList);
+
+    setTimeout(function () {
+      document.querySelector(".alert").remove();
+    }, 2000);
   }
 }
 
@@ -49,9 +59,20 @@ document.querySelector("#ingredient-form").addEventListener("submit", (e) => {
   const quantity = document.querySelector("#ingredientQty").value;
 
   if (ingredient === "" || quantity === "") {
-
+    UI.showAlert("Fill all fields", "warning");
   } else {
     const list = new Ingredients(ingredient, quantity);
     UI.addIngredients(list);
+    UI.clearFields();
+    UI.showAlert("added", "success");
   }
 });
+
+document.querySelector("#ingredient-list").addEventListener("click", (e) => {
+  UI.deleteList(e.target);
+  UI.showAlert("removed", "success");
+});
+
+const submitForms = function () {
+  document.querySelector("#recipes-form").submit();
+}

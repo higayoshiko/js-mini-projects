@@ -11,9 +11,13 @@
 
 <body>
   <div class="container mt-5">
-    <div class="">
+    <h1>Recipes</h1>
+    <form class="recipes-form" id="recipes-form">
+      <input type="text" class="form-control" id="meal-title" placeholder="Meal name">
+    </form>
+    <div class="list-ctn mt-4">
       <h3>Ingredient List</h3>
-      <ul class="list-group mt-4" id="ingredient-list"></ul>
+      <ul class="list-group mt-3" id="ingredient-list"></ul>
     </div>
     <form id="ingredient-form">
       <div class="form-group">
@@ -22,8 +26,10 @@
       <div class="form-group">
         <input type="text" class="form-control" id="ingredientQty" placeholder="Qty">
       </div>
-      <input class="btn btn-lg btn-primary mt-5" type="submit" value="add ingredient"></input>
+      <input class="btn btn-sm btn-primary mt-5" type="submit" value="add ingredient"></input>
     </form>
+
+    <input class="btn btn-lg btn-primary mt-5" type="button" value="Submit" onclick="submitForms()"></input>
   </div>
 
   <script src="app.js" charset="utf-8"></script>
