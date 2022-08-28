@@ -10,10 +10,10 @@
 </head>
 
 <body>
-  <div class="container mt-5">
-    <h1>Recipes</h1>
+  <div class="container mt-5 forms-ctn">
+    <h1 class="title">Recipes</h1>
     <form class="recipes-form" id="recipes-form">
-      <input type="text" class="form-control" id="meal-title" placeholder="Meal name">
+      <input type="text" class="form-control" id="meal-name" placeholder="Meal name">
     </form>
     <div class="list-ctn mt-4">
       <h3>Ingredient List</h3>
@@ -28,8 +28,36 @@
       </div>
       <input class="btn btn-sm btn-primary mt-5" type="submit" value="add ingredient"></input>
     </form>
+    <div class="col text-center">
+      <button class="btn btn-lg btn-primary mt-5" form="recipes-form" type="submit">Submit</button>
+    </div>
+  </div>
 
-    <input class="btn btn-lg btn-primary mt-5" type="button" value="Submit" onclick="submitForms()"></input>
+  <div class="container mt-5">
+    <h2>My Recipes</h2>
+
+    <div class="card-ctn mt-4" id="card-ctn">
+      <div class="card text-white bg-primary mb-3" style="max-width: 20rem;">
+        <div class="card-header">Name</div>
+        <div class="card-body">
+          <h4 class="card-title">Ingredients</h4>
+          <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Cras justo odio
+              <span class="badge bg-primary rounded-pill">14</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Dapibus ac facilisis in
+              <span class="badge bg-primary rounded-pill">2</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+              Morbi leo risus
+              <span class="badge bg-primary rounded-pill">1</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
 
   <script src="app.js" charset="utf-8"></script>
