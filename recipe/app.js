@@ -12,8 +12,8 @@ class Recipe {
 }
 
 class UI {
-
   static displayIngredients() {
+
     const lists = StoringData.getIngredients();
 
     lists.forEach((list) => UI.addIngredients(list));
@@ -40,7 +40,7 @@ class UI {
     }
   }
 
-  static clearFields() {
+  static clearIngredientFields() {
     document.querySelector("#ingredient").value = "";
     document.querySelector("#ingredientQty").value = "";
   }
@@ -70,7 +70,7 @@ class UI {
     const cardDiv = document.createElement("div");
 
     cardDiv.innerHTML = `
-    <div class="card-header">${recipe.title}</div>
+    <div class="card-header">${recipe.name}</div>
     <div class="card-body">
       <h4 class="card-title">Ingredients</h4>
       <ul class="list-group">
@@ -86,6 +86,10 @@ class UI {
     cardDiv.style.maxWidth = "20rem";
     cardCtn.appendChild(cardDiv);
   }
+
+  static clearRecipeFields() {
+    document.querySelector("#meal-name").value = "";
+  }
 }
 
 class StoringData {
@@ -95,11 +99,10 @@ class StoringData {
     if (localStorage.getItem("ingredients") === null) {
       storedIngredients = [];
     } else {
-      storedIngredients = JSON.parse(localStorage.getItem("storedIngredients"));
+      storedIngredients = JSON.parse(localStorage.getItem("ingredients"));
     }
     return storedIngredients;
   }
-
 
   static addIngredients(ingredient) {
     const ingredients = StoringData.getIngredients();
@@ -113,20 +116,20 @@ class StoringData {
     if (localStorage.getItem("recipes") === null) {
       storedRecipes = [];
     } else {
-      storedRecipes = JSON.parse(localStorage.getItem("storedRecipes"));
+      storedRecipes = JSON.parse(localStorage.getItem("recipes"));
     }
     return storedRecipes;
   }
 
-  static addToMyRecipes(recipe) {
+  static addToMyRecipes(name) {
     const recipes = StoringData.getStoredRecipes();
-    recipes.push(recipe);
+    recipes.push(name);
 
-    localStorage.setItem("recipes", JSON.stringify(recipe));
+    localStorage.setItem("recipes", JSON.stringify(recipes));
   }
 }
 
-// document.addEventListener("DOMContentLoaded", UI.displayBooks);
+document.addEventListener("DOMContentLoaded", UI.displayIngredients);
 
 document.querySelector("#ingredient-form").addEventListener("submit", (e) => {
   e.preventDefault();
@@ -140,7 +143,7 @@ document.querySelector("#ingredient-form").addEventListener("submit", (e) => {
     const list = new Ingredients(ingredient, quantity);
     UI.addIngredients(list);
     StoringData.addIngredients(list);
-    UI.clearFields();
+    UI.clearIngredientFields();
     UI.showAlert("added", "success");
   }
 });
@@ -158,8 +161,9 @@ document.querySelector("#recipes-form").addEventListener("submit", (e) => {
     UI.showAlert("fill in all fields", "warning");
   } else {
     const recipeName = new Recipe(mealName);
-    UI.addRecipe(mealName);
-    StoringData.addToMyRecipes(mealName);
+    UI.addRecipe(recipeName);
+    StoringData.addToMyRecipes(recipeName);
+    UI.clearRecipeFields();
   }
 
 });
